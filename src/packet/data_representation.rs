@@ -44,7 +44,7 @@ pub async fn read_variable_byte_integer<R: Read>(input: &mut R) -> Result<u32, E
         multiplier *= 128;
         if multiplier > 128 * 128 * 128 {
             // This would be the 5th byte, but the specification allows four bytes maximum.
-            return Err(Error::MalformedPacketError);
+            return Err(Error::MalformedPacket);
         }
     }
 
@@ -120,7 +120,7 @@ mod tests {
         let data = [];
         let mut reader = &data[..];
         let result = read_u8(&mut reader).await;
-        assert!(matches!(result, Err(Error::MalformedPacketError)));
+        assert!(matches!(result, Err(Error::MalformedPacket)));
     }
 
     #[tokio::test]
@@ -136,7 +136,7 @@ mod tests {
         let data = [0x12];
         let mut reader = &data[..];
         let result = read_u16(&mut reader).await;
-        assert!(matches!(result, Err(Error::MalformedPacketError)));
+        assert!(matches!(result, Err(Error::MalformedPacket)));
     }
 
     #[tokio::test]
@@ -152,7 +152,7 @@ mod tests {
         let data = [0x12, 0x34, 0x56];
         let mut reader = &data[..];
         let result = read_u32(&mut reader).await;
-        assert!(matches!(result, Err(Error::MalformedPacketError)));
+        assert!(matches!(result, Err(Error::MalformedPacket)));
     }
 
     #[tokio::test]
@@ -208,7 +208,7 @@ mod tests {
         let data = [0x80, 0x80, 0x80, 0x80, 0x01];
         let mut reader = &data[..];
         let result = read_variable_byte_integer(&mut reader).await;
-        assert!(matches!(result, Err(Error::MalformedPacketError)));
+        assert!(matches!(result, Err(Error::MalformedPacket)));
     }
 
     #[tokio::test]
@@ -216,7 +216,7 @@ mod tests {
         let data = [0x80]; // Continuation bit set but no next byte
         let mut reader = &data[..];
         let result = read_variable_byte_integer(&mut reader).await;
-        assert!(matches!(result, Err(Error::MalformedPacketError)));
+        assert!(matches!(result, Err(Error::MalformedPacket)));
     }
 
     #[tokio::test]

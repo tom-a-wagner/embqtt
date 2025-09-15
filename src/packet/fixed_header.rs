@@ -181,7 +181,7 @@ mod tests {
         let mut reader = &data[..];
 
         let result = FixedHeader::read(&mut reader).await;
-        assert!(matches!(result, Err(Error::MalformedPacketError)));
+        assert!(matches!(result, Err(Error::MalformedPacket)));
     }
 
     // Tests for FixedHeader::write()
