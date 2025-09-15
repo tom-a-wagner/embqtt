@@ -1,0 +1,9 @@
+[package]
+name = "embqtt"
+version = "0.1.0"
+authors = ["Tom Wagner <tom.a.wagner@protonmail.com>"]
+edition = "2024"
+description = "Async embedded MQTT client using embedded-hal traits"
+repository = "https://github.com/tom-a-wagner/embqtt"
+
+[dependencies]
